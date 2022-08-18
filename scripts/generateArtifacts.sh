@@ -3,11 +3,6 @@ rootFolder="$(dirname `pwd`)"
 
 dockerfileLocation="fabricTools/fabricTools.dockerfile"
 pushd $rootFolder
-docker build . -f ${dockerfileLocation} -t $1 \
-    --build-arg GO_VERSION=1.13.12 \
-    --build-arg ALPINE_VERSION=3.12 \
-    --build-arg FABRIC_VERSION=1.4.8 \
-    --build-arg FABRIC_CA_VERSION=1.4.8
 popd
 
 artifactsFolder=${rootFolder}/${artifactsFolder}

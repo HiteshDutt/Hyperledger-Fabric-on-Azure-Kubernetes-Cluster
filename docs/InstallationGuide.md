@@ -33,10 +33,10 @@ The following requirements need to be met:
     Storage Account for Azure
 ```
 
-## Generating the docker image and the marketplace artifacts 🛠
+## Generating and Uploading marketplace artifacts 🛠
 ### Clone the git repo
 
-`git clone https://github.com/krypc-code/Hyperledger-Fabric-on-Azure-Kubernetes-Cluster.git`
+`git clone https://github.com/hiteshdutt/Hyperledger-Fabric-on-Azure-Kubernetes-Cluster.git`
 
 ### Navigate to the scripts directory
 
@@ -45,39 +45,18 @@ The following requirements need to be met:
 
 ### Execute the generateArtifacts.sh script
 
-`bash generateArtifacts.sh <DockerImageNameWithTag>`
+`bash generateArtifacts.sh`
 
-- An example to this command would be
+### Upload the Genentated Artifacts to Storage Account 
 
-- `bash generateArtifacts.sh yourrepo/fabrictools:3.1`
+`bash uploadArtifacts.sh <storage account Name> <container name> <storage account key>`
 
+- An example for upload documents (just for reference, this will work once demo values are replaced with actual information)
 
+`bash uploadArtifacts.sh demostoragename democontainer xxxxxxx`
 
-## Push the image to the registry 🛠
-
-- The image that is built in the previous step needs to be uploaded in a docker registry to be used by the ARM template.
-
-- The image can be pushed to a docker registry of your choice by using the following command:
-- `docker push <DockerImageWithTag>`
-- Please note that you may need to do docker login to your registry to successfully push the image.
-
-
-## Upload the generated artifacts 🛠
-- The artifacts are generated at `Hyperledger-Fabric-On-AKS/out`. The contents in the `out` directory should be uploaded to a location that can be accessed by the template. While uploading, the directory structure should not be changed.
-
-For example, if we are uploading the artifacts to the Azure Blob using Azure CLI, the following commands can be used.
-
-- First,create storage account, get account keys and create a container named `mktplace` inside it.
-```
-az storage blob upload --account-name <storageAccountName> --container-name mktplace --file <rootDir>/Hyperledger-Fabric-on-Azure-Kubernetes-Cluster/out/hlf-marketplace.zip --name hlf-marketplace.zip --account-key $ACCOUNT_KEY
-
-az storage blob upload --account-name <storageAccountName> --container-name mktplace --file <rootDir>/Hyperledger-Fabric-on-Azure-Kubernetes-Cluster/out/artifacts/funcNodeJS.zip --name artifacts/funcNodeJS.zip --account-key $ACCOUNT_KEY
-
-az storage blob upload --account-name <storageAccountName> --container-name mktplace --file <rootDir>/Hyperledger-Fabric-on-Azure-Kubernetes-Cluster/out/nestedtemplates/publicIpTemplate.json --name nestedtemplates/publicIpTemplate.json --account-key $ACCOUNT_KEY
-
-az storage blob upload --account-name <storageAccountName> --container-name mktplace --file <rootDir>/Hyperledger-Fabric-on-Azure-Kubernetes-Cluster/out/mainTemplate.json --name mainTemplate.json --account-key $ACCOUNT_KEY
-
-```
+#### Important
+- The artifacts are generated at `Hyperledger-Fabric-on-Azure-Kubernetes-Cluster/out`. The contents in the `out` directory should be uploaded to a location that can be accessed by the template. While uploading, the directory structure should not be changed.
 
 ## Create Connection Profiles
   - Continue the deployment by creating connection profiles.
