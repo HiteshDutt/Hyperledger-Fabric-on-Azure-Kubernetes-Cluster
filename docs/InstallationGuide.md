@@ -51,9 +51,10 @@ An example, assuming your repo name is "hlfdemo", image name is "fabrictools" an
 
 `bash generateArtifacts.sh hlfdemo/fabrictools:1.0`
 
-### Upload the Genentated Artifacts to Storage Account 
+### Upload/Push the Genentated Artifacts
+- login to your container registory, Example : if your account is in docker hub, please use command `docker login` and follow instructions
 
-`bash uploadArtifacts.sh <storage account Name> <container name> <storage account key>`
+`bash uploadArtifacts.sh <storage account Name> <container name> <storage account key> <yourrepo>/<imageName>:<version>` 
 
 - An example for upload documents (just for reference, this will work once demo values are replaced with actual information)
 
