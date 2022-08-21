@@ -45,7 +45,11 @@ The following requirements need to be met:
 
 ### Execute the generateArtifacts.sh script
 
-`bash generateArtifacts.sh`
+`bash generateArtifacts.sh <yourrepo>/<imageName>:<version>`
+
+An example, assuming your repo name is "hlfdemo", image name is "fabrictools" and version is 1.0
+
+`bash generateArtifacts.sh hlfdemo/fabrictools:1.0`
 
 ### Upload the Genentated Artifacts to Storage Account 
 
