@@ -434,7 +434,7 @@
         "condition": "[parameters('enableOmsAgent')]",
         "type": "Microsoft.OperationalInsights/workspaces",
         "name": "[variables('workspaceName')]",
-        "apiVersion": "2020-10-01",
+        "apiVersion": "2021-12-01-preview",
         "location": "[variables('logAnalyticsWorkspaceLocation')]",
         "properties": {
           "features": {
@@ -449,11 +449,11 @@
         "dependsOn": [
           "[variables('workspaceName')]"
         ],
-        "apiVersion": "2020-10-01",
+        "apiVersion": "2021-04-01",
         "properties": {
           "mode": "Incremental",
           "template": {
-            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+            "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",
             "parameters": {
             },
@@ -480,7 +480,7 @@
         }
       },
       {
-        "apiVersion": "2020-09-01",
+        "apiVersion": "2022-06-02-preview",
         "type": "Microsoft.ContainerService/managedClusters",
         "dependsOn": [
           "[variables('workspaceName')]",
@@ -527,7 +527,7 @@
       {
         "type": "Microsoft.KeyVault/vaults",
         "name": "[variables('keyVaultName')]",
-        "apiVersion": "2019-09-01",
+        "apiVersion": "2022-07-01",
         "location": "[parameters('location')]",
         "properties": {
           "tenantId": "[subscription().tenantId]",
@@ -542,7 +542,7 @@
       {
         "type": "Microsoft.KeyVault/vaults/secrets",
         "name": "[concat(variables('keyVaultName'),'/', variables('kubernetesClusterAdminCredential'))]",
-        "apiVersion": "2019-09-01",
+        "apiVersion": "2022-07-01",
         "properties": {
           "value": "[listClusterAdminCredential(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), '2020-09-01').kubeconfigs[0].value]",
           "contentType": "string"
@@ -556,7 +556,7 @@
       {
         "type": "Microsoft.KeyVault/vaults/secrets",
         "name": "[concat(variables('keyVaultName'),'/', variables('hlfRootCertPublicKeySecretName'))]",
-        "apiVersion": "2019-09-01",
+        "apiVersion": "2022-07-01",
         "properties": {
           "value": "[parameters('hlfCaRootCertPublicKey')]",
           "contentType": "string"
@@ -569,7 +569,7 @@
       {
         "type": "Microsoft.KeyVault/vaults/secrets",
         "name": "[concat(variables('keyVaultName'),'/', variables('hlfRootCertPrivateKeySecretName'))]",
-        "apiVersion": "2019-09-01",
+        "apiVersion": "2022-07-01",
         "properties": {
           "value": "[parameters('hlfCaRootCertPrivateKey')]",
           "contentType": "string"
@@ -582,12 +582,12 @@
       {
         "type": "Microsoft.KeyVault/vaults/accessPolicies",
         "name": "[concat(variables('keyVaultName'), '/add')]",
-        "apiVersion": "2019-09-01",
+        "apiVersion": "2022-07-01",
         "properties": {
           "accessPolicies": [
             {
               "tenantId": "[subscription().tenantId]",
-              "objectId": "[reference(resourceId('Microsoft.Web/sites/', variables('funcName')), '2018-11-01', 'Full').identity.principalId]",
+              "objectId": "[reference(resourceId('Microsoft.Web/sites/', variables('funcName')), '2022-03-01', 'Full').identity.principalId]",
               "permissions": {
                 "secrets": [
                   "all"
@@ -602,7 +602,7 @@
       },
       {
         "condition": "[and(equals(parameters('vNetTrigger'), 'Advanced'), equals(parameters('advancedVnetNewOrExist'), 'new'))]",
-        "apiVersion": "2020-11-01",
+        "apiVersion": "2022-01-01",
         "name": "[parameters('vNetName')]",
         "type": "Microsoft.Network/virtualNetworks",
         "location": "[parameters('location')]",
@@ -626,7 +626,7 @@
         "condition": "[equals(parameters('vNetTrigger'), 'Advanced')]",
         "type": "Microsoft.Resources/deployments",
         "name": "[concat('ClusterSubnetRoleAssignmentDeployment', substring(parameters('randomGuid'), 0, 5))]",
-        "apiVersion": "2020-10-01",
+        "apiVersion": "2021-04-01",
         "resourceGroup": "[parameters('advancedVnetResourceGroup')]",
         "properties": {
           "mode": "Incremental",
@@ -640,7 +640,7 @@
             "resources": [
               {
                 "type": "Microsoft.Network/virtualNetworks/subnets/providers/roleAssignments",
-                "apiVersion": "2021-04-01-preview",
+                "apiVersion": "2022-01-01",
                 "name": "[concat(parameters('vNetName'), '/', parameters('clusterSubNetName'), '/Microsoft.Authorization/', parameters('randomGuid'))]",
                 "properties": {
                   "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('netContributorRoleID'))]",
@@ -658,7 +658,7 @@
       },
       {
         "condition": "[parameters('enableHttpApplicationRouting')]",
-        "apiVersion": "2020-10-01",
+        "apiVersion": "2021-04-01",
         "name": "publicIpDeployment",
         "dependsOn": [
           "[resourceId('Microsoft.CustomProviders/resourceProviders/', variables('hlfResourceProvider'))]"
@@ -742,7 +742,7 @@
         ]
       },
       {
-        "apiVersion": "2021-01-01",
+        "apiVersion": "2021-09-01",
         "type": "Microsoft.Storage/storageAccounts",
         "name": "[variables('storageName')]",
         "location": "[parameters('location')]",
@@ -751,7 +751,7 @@
         }
       },
       {
-        "apiVersion": "2020-02-02-preview",
+        "apiVersion": "2020-02-02",
         "name": "[variables('funcName')]",
         "type": "Microsoft.Insights/components",
         "location": "[variables('insightsLocation')]",
@@ -762,7 +762,7 @@
       },
       {
         "type": "Microsoft.Web/serverfarms",
-        "apiVersion": "2018-02-01",
+        "apiVersion": "2022-03-01",
         "name": "[variables('funcName')]",
         "location": "[parameters('location')]",
         "sku": {
@@ -793,19 +793,19 @@
               },
               {
                 "name": "AzureWebJobsStorage",
-                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2019-06-01').keys[0].value)]"
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2021-09-01').keys[0].value)]"
               },
               {
                 "name": "StorageBlobEndpoint",
-                "value": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageName')), '2019-06-01').primaryEndpoints.blob]"
+                "value": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageName')), '2021-09-01').primaryEndpoints.blob]"
               },
               {
                 "name": "FUNCTIONS_EXTENSION_VERSION",
-                "value": "~2"
+                "value": "~4"
               },
               {
                 "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2019-06-01').keys[0].value)]"
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2021-09-01').keys[0].value)]"
               },
               {
                 "name": "WEBSITE_CONTENTSHARE",
@@ -821,7 +821,7 @@
               },
               {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                "value": "[reference(resourceId('microsoft.insights/components/',variables('funcName')), '2018-05-01-preview').InstrumentationKey]"
+                "value": "[reference(resourceId('microsoft.insights/components/',variables('funcName')), '2020-02-02').InstrumentationKey]"
               },
               {
                 "name": "AzureWebJobsSecretStorageType",
@@ -863,7 +863,7 @@
           "[resourceId('Microsoft.Web/serverfarms', variables('funcName'))]",
           "[resourceId('Microsoft.ContainerService/managedClusters/', parameters('clusterName'))]"
         ],
-        "apiVersion": "2018-11-01",
+        "apiVersion": "2022-03-01",
         "location": "[parameters('location')]",
         "kind": "functionapp"
       },
@@ -881,7 +881,7 @@
             {
               "name": "deploy",
               "routingType": "Proxy",
-              "endpoint": "[concat('https://', reference(resourceId('Microsoft.Web/sites/', variables('funcName'))).hostNames[0], '/api/{requestPath}', '?code=', listSecrets(resourceId('Microsoft.Web/sites/functions',variables('funcName'),'HttpTrigger'), '2018-11-01').key)]"
+              "endpoint": "[concat('https://', reference(resourceId('Microsoft.Web/sites/', variables('funcName'))).hostNames[0], '/api/{requestPath}', '?code=', listSecrets(resourceId('Microsoft.Web/sites/functions',variables('funcName'),'HttpTrigger'), '2022-03-01').key)]"
             }
           ]
         }
