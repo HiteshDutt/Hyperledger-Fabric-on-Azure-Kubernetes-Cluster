@@ -535,7 +535,8 @@
             "family": "A",
             "name": "standard"
           },
-          "accessPolicies": []
+          "accessPolicies": [],
+          "softDeleteRetentionInDays": 9
         },
         "comments": "Key Vault for storing secrets."
       },
@@ -631,7 +632,7 @@
         "properties": {
           "mode": "Incremental",
           "template": {
-            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+            "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",
             "parameters": {
             },
@@ -679,7 +680,7 @@
               "value": "[variables('publicIPAddressName')]"
             },
             "dnsZoneName": {
-              "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters/', parameters('clusterName')), '2020-09-01').addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]"
+              "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters/', parameters('clusterName')), '2022-06-02-preview').addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]"
             },
             "aRecordNamePrefix": {
               "value": "[variables('aRecordNamePrefix')]"
@@ -812,12 +813,12 @@
                 "value": "[concat(toLower(variables('funcName')), '9ccc')]"
               },
               {
-                "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                "value": "10.14.1"
-              },
-              {
                 "name": "WEBSITE_RUN_FROM_PACKAGE",
                 "value": "[variables('funcNodeJsPackageUri')]"
+              },
+              {
+                "name": "POSTGRESCONNECTIONSTRING",
+                "value": "[format('host={0} port=5432 user={1} password={2} dbname={3} sslmode=verify-full', reference(resourceId('Microsoft.DBforPostgreSQL/servers', variables('pg_fabric_ca_server_name')), '2017-12-01').fullyQualifiedDomainName, concat(variables('pg_administratorLogin'),'@', variables('pg_fabric_ca_server_name')), variables('pg_administratorPassword'), variables('pg_fabric_ca_database_name'))]"
               },
               {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
@@ -902,7 +903,7 @@
           "userPswd": "[parameters('hlfCaPswd')]",
           "postgresConnectionString": "[format('host={0} port=5432 user={1} password={2} dbname={3} sslmode=verify-full', reference(resourceId('Microsoft.DBforPostgreSQL/servers', variables('pg_fabric_ca_server_name')), '2017-12-01').fullyQualifiedDomainName, concat(variables('pg_administratorLogin'),'@', variables('pg_fabric_ca_server_name')), variables('pg_administratorPassword'), variables('pg_fabric_ca_database_name'))]",
           "publicIpAddress": "[reference('publicIpDeployment').outputs.publicIpAddress.value]",
-          "dnsZoneDomain": "[reference(resourceId('Microsoft.ContainerService/managedClusters/', parameters('clusterName')), '2020-09-01').addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]"
+          "dnsZoneDomain": "[reference(resourceId('Microsoft.ContainerService/managedClusters/', parameters('clusterName')), '2022-06-02-preview').addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]"
         }
       }
     ],
