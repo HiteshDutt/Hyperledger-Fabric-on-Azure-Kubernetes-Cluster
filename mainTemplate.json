@@ -893,6 +893,7 @@
         "name": "[concat(variables('hlfResourceProvider'), '/', variables('funcName'))]",
         "location": "[variables('hlfResourceProviderLocation')]",
         "properties": {
+          "targetResourceId":"[resourceId('Microsoft.CustomProviders/resourceProviders', variables('hlfResourceProvider'))]",
           "hlfOrgName": "[parameters('hlfOrgName')]",
           "hlfNodesNumber": "[variables('hlfNumberNodes')]",
           "hlfMemberType": "[parameters('hlfMemberType')]",
