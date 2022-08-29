@@ -1,0 +1,126 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "fabric-tools",
+    "labels": {
+      "app": "fabric-tools"
+    }
+  },
+  "spec": {
+    "restartPolicy": "Never",
+    "serviceAccountName": "admin-account",
+    "containers": [
+      {
+        "name": "fabric-tools",
+        "image": "hiteshdutt/fabrictools:2.10",
+        "command": [
+          "/bin/bash"
+        ],
+        "args": [
+          "-c",
+          "/var/hyperledger/scripts/renewCertificates.sh"
+        ],
+        "env": [
+          {
+            "name": "HLF_STATIC_IP",
+            "value": "40.73.65.111"
+          },
+          {
+            "name": "HLF_NODE_TYPE",
+            "value": "orderer"
+          },
+          {
+            "name": "HLF_NODE_COUNT",
+            "value": "3"
+          },
+          {
+            "name": "HLF_ORG_NAME",
+            "value": "OrdererOrg"
+          },
+          {
+            "name": "HLF_BACKEND_DB",
+            "value": "couchDb"
+          },
+          {
+            "name": "HLF_DOMAIN_NAME",
+            "value": "c8bfc1615dd34274aba0.chinaeast2.aksapp.azure.cn"
+          }
+        ],
+        "volumeMounts": [
+          {
+            "mountPath": "/var/hyperledger/fabric-ca-credentials",
+            "name": "ca-credentials",
+            "readOnly": true
+          },
+          {
+            "mountPath": "/var/hyperledger/fabric-ca-server-db",
+            "name": "ca-server-db",
+            "readOnly": true
+          },
+          {
+            "mountPath": "/var/hyperledger/tls/rca.pem",
+            "name": "hlf-ca-idcert",
+            "readOnly": true,
+            "subPath": "rca.pem"
+          },
+          {
+            "mountPath": "/var/hyperledger/tls/rca.key",
+            "name": "hlf-ca-idkey",
+            "readOnly": true,
+            "subPath": "rca.key"
+          },
+          {
+            "mountPath": "/var/hyperledger/deployments",
+            "name": "fabric-ca-server-config",
+            "readOnly": true
+          },
+          {
+            "mountPath": "/var/hyperledger/deployments/pgcerts",
+            "name": "pg-ssl-rootcert",
+            "readOnly": true
+          }
+        ],
+        "workingDir": "/var/hyperledger"
+      }
+    ],
+    "volumes": [
+      {
+        "name": "ca-credentials",
+        "secret": {
+          "secretName": "ca-credentials"
+        }
+      },
+      {
+        "name": "ca-server-db",
+        "secret": {
+          "secretName": "ca-server-db"
+        }
+      },
+      {
+        "name": "hlf-ca-idcert",
+        "secret": {
+          "secretName": "hlf-ca-idcert"
+        }
+      },
+      {
+        "name": "hlf-ca-idkey",
+        "secret": {
+          "secretName": "hlf-ca-idkey"
+        }
+      },
+      {
+        "name": "fabric-ca-server-config",
+        "secret": {
+          "secretName": "fabric-ca-server-config"
+        }
+      },
+      {
+        "name": "pg-ssl-rootcert",
+        "secret": {
+          "secretName": "pg-ssl-rootcert"
+        }
+      }
+    ]
+  }
+}

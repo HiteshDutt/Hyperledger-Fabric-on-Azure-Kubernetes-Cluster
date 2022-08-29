@@ -6,6 +6,7 @@ statusNamespace="metadata"
 nodesNamespace="hlf"
 adminNamespace="hlf-admin"
 nginxNamespace="nginx"
+renewNamespace="hlf-renew"
 
 CAServerName="ca.ca.svc.cluster.local."
 CAOperationPort="9443"
