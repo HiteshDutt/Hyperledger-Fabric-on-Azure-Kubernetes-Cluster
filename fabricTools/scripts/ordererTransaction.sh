@@ -8,7 +8,7 @@ export ORDERER_NEW_TLS_FILE=$5
 echo "#=========================================================RENEW ${ORDERER_ORG_NAME} ORDERER $i TLS CERTIFICATE===================================#"
 CURRENT_LOCATION=$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 if [[ $CERT_LOCATION == "" ]];then
-    CERT_LOCATION="$CURRENT_LOCATION/cryptoconfig"
+    CERT_LOCATION="$CRYPTO_CONFIG"
 fi
 export FABRIC_CFG_PATH="$CURRENT_LOCATION";
 ORDERER="orderer$i.$ORDERER_DNS:443"
