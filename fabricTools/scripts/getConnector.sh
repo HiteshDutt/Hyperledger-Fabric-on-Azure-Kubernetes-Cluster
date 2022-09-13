@@ -24,4 +24,4 @@ if [ "${cloudType,,}" = "${CLOUD_TYPE_CHINA,,}" ]; then
 else
     webAppExtension="azurewebsites.net"
 fi
-echo "\nhttps://$webAppName.$webAppExtension/api/{action}?code=$functionDefaultKey\n"
+echo -e "\nhttps://$webAppName.$webAppExtension/api/{action}?code=$functionDefaultKey\n"
