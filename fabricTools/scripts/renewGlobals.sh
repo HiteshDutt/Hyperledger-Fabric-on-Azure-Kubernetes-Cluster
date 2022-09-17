@@ -8,6 +8,7 @@ CRYPTO_CONFIG=/tmp/cryptoconfig
 CRYPTO_CONFIG_NEW=${CRYPTO_CONFIG}/new-certs
 GENERATED_CONFIG_FILES=/tmp/configfiles
 ORG_DETAIL_DATA=$(kubectl get cm org-detail -n ${adminNamespace} -o json | jq -r '.data')
+CONSORTIUM_NAME="SampleConsortium"
 DOMAIN_NAME=$(echo $ORG_DETAIL_DATA | jq -r '.domainName')
 NODE_COUNT=$(echo $ORG_DETAIL_DATA | jq -r '.nodeCount')
 ORG_NAME=$(echo $ORG_DETAIL_DATA | jq -r '.orgName')
