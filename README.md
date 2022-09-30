@@ -1,5 +1,3 @@
-![logo 216.png](images/logo.png)
-
 # Introduction 
 
 - Microsoft provides ARM template for creating HLF network on AKS via https://github.com/Azure/Hyperledger-Fabric-on-Azure-Kubernetes-Service.Since this repo only covers HLF 1.4 and there is a need for HL 2.x in the market due it's widely popular features and improvments, we have created this repository with HLF 2.2. support following the same order as the Microsoft Sample.
@@ -9,22 +7,8 @@
 
 - Hyperledger Fabric (HLF) Deployer is a simple to use Azure template that spins off Microsoft Azure resources for enterprise users to deploy and configure Hyperledger Fabric network on Azure including “peer”, “orderer” and other minimum required micro services. Besides getting HLF network deployed on AKS in few clicks, enterprise users will find this template useful for External Chaincode Support, Log Analytics Workspace Support and Fabric Go CLI for Interaction with HLF Network.  
 
-- HLF Deployer is free service without any service-level agreement provided by KrypC Technologies in association with Microsoft in Azure Market Place. Use Github Link for further details.  
+- HLF Deployer is free service without any service-level agreement provided by Owner in association with Microsoft in Azure Market Place. Use Github Link for further details.  
 
-# Blockchain Services 
-
-- Beyond deployment, enterprises would need many dynamic services for developing a HLF program and managing the HLF network while in production mode. For this, KrypC, a Hyperledger Certified Service Provider, provides the following commercial HLF Service Packs that Azure enterprise customers can choose:  
-
-
-- **Option A: KrypC HLF BaaS** helps enterprise users to manage any Hyperledger Fabric programs at all stages of its lifecycle using simple steps through sequential GUI screens. Features of KrypC HLF BaaS include Chaincode management, Node management, Channel management, Datalake for business data reporting, Explorer Plus for business data visualization, Identity Management, External Chaincode Management and Customizable Publisher Subscriber Notification System.  
-
-- **KrypC HLF BaaS** is available as a licensed software. Refer KrypC HLF Services Document to know more about KrypC HLF BaaS.  
-
-- **Option B: KrypC Managed HLF Services** is a collection of KrypC’s HLF services and capabilities made available as fully outsourced model. By availing this service, enterprises can swiftly participate in any HLF ecosystem and focus on the business aspects of the program while leaving the nuances and challenges relating to HLF technology to KrypC.  
-
-- **KrypC Managed HLF Services** will include features like Chaincode management, Node management, Channel management, Datalake for business data reporting, Explorer Plus for business data visualization, Identity Management, External Chaincode Management and Customizable Publisher Subscriber Notification System which will be supplemented with Performance Monitoring, Log Analytics, Performance Visualization, Maintenance and 24/7 Support for your enterprise blockchain network.  
-
-- **KrypC Managed HLF Services** is available as a subscription service. Refer KrypC HLF Services Document to know more about KrypC Managed HLF Services. 
 
 # Getting Started
 
